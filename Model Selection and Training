@@ -1,0 +1,15 @@
+# Split data into training and validation sets
+set.seed(123)
+library(caret)
+trainIndex <- createDataPartition(training_data_normalized$classe, p = 0.7, list = FALSE)
+data_train <- training_data_normalized[trainIndex, ]
+data_val <- training_data_normalized[-trainIndex, ]
+
+# Train a Random Forest model
+model_rf <- randomForest(classe ~ ., data = data_train, ntree = 500)
+
+# Predict on validation set
+predictions <- predict(model_rf, data_val)
+
+# Evaluate model performance
+confusionMatrix(predictions, data_val$classe)
