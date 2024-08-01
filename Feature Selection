@@ -1,0 +1,8 @@
+# Correlation matrix (optional)
+cor_matrix <- cor(training_data_normalized[, numeric_cols])
+corrplot::corrplot(cor_matrix, method = "color")
+
+# Feature importance with Random Forest (example)
+library(randomForest)
+rf_model <- randomForest(classe ~ ., data = training_data_normalized, ntree = 100)
+importance(rf_model)
