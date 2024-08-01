@@ -1,0 +1,8 @@
+# Example of grid search for Random Forest
+grid <- expand.grid(mtry = c(2, 5, 10), nodesize = c(1, 5, 10))
+model_rf_tuned <- train(classe ~ ., data = data_train, method = "rf", trControl = trainControl(method = "cv", number = 5), tuneGrid = grid)
+best_model <- model_rf_tuned$finalModel
+predictions_tuned <- predict(best_model, data_val)
+
+# Evaluate tuned model
+confusionMatrix(predictions_tuned, data_val$classe)
