@@ -1,0 +1,12 @@
+# Remove irrelevant columns (e.g., timestamps, row number)
+training_data <- training_data %>%
+  select(-X, -user_name, -raw_timestamp_part_1, -raw_timestamp_part_2, -cvtd_timestamp)
+
+# Remove columns with mostly missing values
+training_data <- training_data %>%
+  select(which(colMeans(!is.na(training_data)) > 0.9))
+
+# Normalize numeric columns
+numeric_cols <- sapply(training_data, is.numeric)
+training_data_normalized <- training_data
+training_data_normalized[, numeric_cols] <- scale(training_data_normalized[, numeric_cols])
