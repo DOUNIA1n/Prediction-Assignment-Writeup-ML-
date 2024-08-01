@@ -1,0 +1,11 @@
+# Load test dataset
+url_test <- "https://d396qusza40orc.cloudfront.net/predmachlearn/pml-testing.csv"
+testing_data <- read_csv(url_test)
+
+# Preprocess test data (similar to training data preprocessing steps)
+
+# Predict using the trained model
+predictions_test <- predict(best_model, testing_data)
+
+# Format predictions for submission (ensure it matches the expected format)
+write.csv(predictions_test, file = "predictions.csv")
